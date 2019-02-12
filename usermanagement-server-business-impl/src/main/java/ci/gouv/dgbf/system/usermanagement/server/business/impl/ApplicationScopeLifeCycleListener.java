@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.cyk.utility.__kernel__.AbstractApplicationScopeLifeCycleListener;
+import org.cyk.utility.system.node.SystemServer;
 
 @ApplicationScoped
 public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeLifeCycleListener implements Serializable {
@@ -31,7 +32,7 @@ public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeL
 				,new Role().setCode("CB").setName("Contrôleur budgétaire")
 				,new Role().setCode("CA").setName("Comptable Assignataire")
 				));*/
-		
+		__inject__(SystemServer.class).setName("Gestion des utilisateurs");
 	}
 	
 	@Override
