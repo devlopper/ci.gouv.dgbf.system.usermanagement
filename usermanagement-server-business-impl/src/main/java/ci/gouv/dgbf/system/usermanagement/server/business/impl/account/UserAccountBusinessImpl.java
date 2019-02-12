@@ -65,8 +65,8 @@ public class UserAccountBusinessImpl extends AbstractBusinessEntityImpl<UserAcco
 				+" "+user.getPerson().getLastNames()
 				+" , un compte utilisateur a été créé avec succès. Le nom utilisateur est : "+account.getCode()+" et le mot de passe est : "+account.getPass()))
 		.addReceivers(__inject__(Receiver.class).setIdentifier(electronicMailAddress))
-		.executeAsynchronously();
-		
+		//.executeAsynchronously();
+		.execute();
 		return this;
 	}
 	

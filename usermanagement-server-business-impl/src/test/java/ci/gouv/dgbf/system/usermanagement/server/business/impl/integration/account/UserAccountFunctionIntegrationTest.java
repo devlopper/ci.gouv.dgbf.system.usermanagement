@@ -15,7 +15,7 @@ public class UserAccountFunctionIntegrationTest extends AbstractBusinessArquilli
 	
 	@Test
 	public void createOneUserAccount() throws Exception{
-		User user = new User().setElectronicMailAddress("kycdev@gmail.com").setPerson(new UserNaturalPerson().setFirstName("Zadi"));
+		User user = new User().setElectronicMailAddress("kycdev@gmail.com").setPerson(new UserNaturalPerson().setFirstName("Zadi").setLastNames("Business"));
 		UserAccount userAccount = new UserAccount().setUser(user);
 		__inject__(TestBusinessCreate.class).addObjects(userAccount).execute();
 	}
