@@ -8,12 +8,7 @@
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		
-		<!-- xxx -->
-		<!--navigation-case>
-			<from-outcome>xxxView</from-outcome>
-			<to-view-id></to-view-id>
-			<redirect />
-		</navigation-case-->
+		
 		
 	</navigation-rule>
 

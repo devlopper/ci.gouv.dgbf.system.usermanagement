@@ -1,15 +1,12 @@
 package ci.gouv.dgbf.system.usermanagement.server.business.impl.account;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.inject.Singleton;
 
 import org.cyk.utility.__kernel__.properties.Properties;
-import org.cyk.utility.network.message.Message;
-import org.cyk.utility.network.message.sender.Receiver;
-import org.cyk.utility.network.message.sender.SenderMail;
 import org.cyk.utility.random.RandomHelper;
-import org.cyk.utility.security.Credentials;
 import org.cyk.utility.server.business.AbstractBusinessEntityImpl;
 import org.cyk.utility.server.business.BusinessServiceProvider;
 import org.cyk.utility.string.StringHelper;
@@ -56,17 +53,10 @@ public class UserAccountBusinessImpl extends AbstractBusinessEntityImpl<UserAcco
 		super.create(userAccount, properties);
 		
 		//Notification
-		SenderMail sender = __inject__(SenderMail.class);
-		sender.getProtocol().setHost("smtp.gmail.com").setPort(587).setIsAuthenticationRequired(Boolean.TRUE).setIsSecuredConnectionRequired(Boolean.TRUE)
-		.setAuthenticationCredentials(__inject__(Credentials.class).setIdentifier("dgbfdtideveloppers").setSecret("dgbf2016dti"));
+		__sendMail__("SIB - Création de compte utilisateur", user.getPerson().getFirstName()+" "+user.getPerson().getLastNames()
+				+" , un compte utilisateur a été créé avec succès. Le nom utilisateur est : "+account.getCode()
+				+" et le mot de passe est : "+account.getPass(), Arrays.asList(electronicMailAddress), Boolean.FALSE);
 		
-		sender
-		.setMessage(__inject__(Message.class).setTitle("SIB - Création de compte utilisateur").setBody(user.getPerson().getFirstName()
-				+" "+user.getPerson().getLastNames()
-				+" , un compte utilisateur a été créé avec succès. Le nom utilisateur est : "+account.getCode()+" et le mot de passe est : "+account.getPass()))
-		.addReceivers(__inject__(Receiver.class).setIdentifier(electronicMailAddress))
-		//.executeAsynchronously();
-		.execute();
 		return this;
 	}
 	
