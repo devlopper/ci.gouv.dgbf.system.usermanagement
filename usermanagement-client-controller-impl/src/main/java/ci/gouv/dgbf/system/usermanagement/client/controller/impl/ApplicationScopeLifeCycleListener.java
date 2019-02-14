@@ -10,7 +10,7 @@ import org.cyk.utility.client.controller.component.menu.MenuBuilderMapGetterImpl
 import org.cyk.utility.client.controller.component.theme.ThemeClassGetterImpl;
 import org.cyk.utility.identifier.resource.UniformResourceIdentifierParameterValueMatrix;
 import org.cyk.utility.instance.InstanceBuilderImpl;
-import org.cyk.utility.system.node.SystemClient;
+import org.cyk.utility.system.node.SystemNodeClient;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Role;
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.UserAccount;
@@ -24,7 +24,7 @@ public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeL
 		__inject__(FunctionRunnableMap.class).set(MenuBuilderMapGetterImpl.class, MenuBuilderMapGetterFunctionRunnableImpl.class,2);
 		__inject__(FunctionRunnableMap.class).set(ThemeClassGetterImpl.class, ThemeClassGetterFunctionRunnableImpl.class,2);
 		__inject__(FunctionRunnableMap.class).set(InstanceBuilderImpl.class, InstanceBuilderFunctionRunnableImpl.class,2);
-		__inject__(SystemClient.class).setName("SIIB");
+		__inject__(SystemNodeClient.class).setName("SIIB");
 		__inject__(UniformResourceIdentifierParameterValueMatrix.class).setClass(Role.class);
 		__inject__(UniformResourceIdentifierParameterValueMatrix.class).setClass(UserAccount.class);
 	}

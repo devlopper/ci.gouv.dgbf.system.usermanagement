@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.faces.context.FacesContext;
 
 import org.cyk.utility.__kernel__.function.AbstractFunctionRunnableImpl;
+import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.component.menu.MenuBuilder;
 import org.cyk.utility.client.controller.component.menu.MenuBuilderMap;
 import org.cyk.utility.client.controller.component.menu.MenuBuilderMapGetter;
@@ -26,8 +27,11 @@ public class MenuBuilderMapGetterFunctionRunnableImpl extends AbstractFunctionRu
 				MenuBuilder menuBuilder = __inject__(MenuBuilder.class).setRenderType(__inject__(MenuRenderTypeRowBar.class));
 				if(principal == null) {
 					menuBuilder.addItems(
-							__inject__(MenuItemBuilder.class).setCommandableNameInternalizationKeyValue(UserAccount.class).setCommandableNavigationIdentifierBuilderSystemAction(__inject__(SystemActionCreate.class).setEntityClass(UserAccount.class))							
-						);	
+						__inject__(MenuItemBuilder.class).setCommandableName("Comptes utilisateurs").setCommandableOutputProperty(Properties.ICON, "fa fa-users").addChild(
+								__inject__(MenuItemBuilder.class).setCommandableName("Créer un compte utilisateur").setCommandableOutputProperty(Properties.ICON, "fa fa-user-plus")
+								.setCommandableNavigationIdentifierBuilderSystemAction(__inject__(SystemActionCreate.class).setEntityClass(UserAccount.class))
+						)									
+					);	
 				}else {
 					
 				}
