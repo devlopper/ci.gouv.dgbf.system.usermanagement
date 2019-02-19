@@ -2,11 +2,28 @@ package ci.gouv.dgbf.system.usermanagement.client.controller.entities.account;
 
 import java.io.Serializable;
 
+import org.cyk.utility.client.controller.component.annotation.Input;
+import org.cyk.utility.client.controller.component.annotation.InputString;
+import org.cyk.utility.client.controller.component.annotation.InputStringLineOne;
 import org.cyk.utility.client.controller.data.AbstractDataImpl;
 
 public class RoleCategoryImpl extends AbstractDataImpl implements RoleCategory,Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Input @InputString @InputStringLineOne
+	private String name;
+	
+	@Override
+	public String getName() {
+		return name;
+	}
+	
+	@Override
+	public RoleCategory setName(String name) {
+		this.name = name;
+		return this;
+	}
+	
 	@Override
 	public RoleCategory setIdentifier(Object identifier) {
 		return (RoleCategory) super.setIdentifier(identifier);

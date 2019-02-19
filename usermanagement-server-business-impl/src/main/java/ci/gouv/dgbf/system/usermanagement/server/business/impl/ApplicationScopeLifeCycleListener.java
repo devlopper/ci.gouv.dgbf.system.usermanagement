@@ -4,10 +4,14 @@ import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.cyk.utility.__kernel__.AbstractApplicationScopeLifeCycleListener;
+import org.cyk.utility.collection.CollectionHelper;
 import org.cyk.utility.network.protocol.ProtocolDefaults;
 import org.cyk.utility.network.protocol.ProtocolSimpleMailTransfer;
 import org.cyk.utility.security.Credentials;
 import org.cyk.utility.system.node.SystemNodeServer;
+
+import ci.gouv.dgbf.system.usermanagement.server.business.api.account.RoleBusiness;
+import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.Role;
 
 @ApplicationScoped
 public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeLifeCycleListener implements Serializable {
@@ -15,7 +19,8 @@ public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeL
 
 	@Override
 	public void __initialize__(Object object) {
-		/*__inject__(RoleBusiness.class).createMany(__inject__(CollectionHelper.class).instanciate(
+		/*
+		__inject__(RoleBusiness.class).createMany(__inject__(CollectionHelper.class).instanciate(
 				new Role().setCode("ADMINISTRATEUR").setName("Administrateur")
 				,new Role().setCode("ASSISTANT").setName("Assistants")
 				,new Role().setCode("CHARGE_ETUDE").setName("Chargés d’études")
@@ -34,7 +39,8 @@ public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeL
 				,new Role().setCode("CF").setName("Contrôleur financier")
 				,new Role().setCode("CB").setName("Contrôleur budgétaire")
 				,new Role().setCode("CA").setName("Comptable Assignataire")
-				));*/
+				));
+		*/
 		__inject__(SystemNodeServer.class).setName("Gestion des utilisateurs");
 		
 		__inject__(ProtocolDefaults.class).get(ProtocolSimpleMailTransfer.class)

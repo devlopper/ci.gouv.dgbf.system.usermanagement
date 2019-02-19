@@ -8,7 +8,7 @@ import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.Ro
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.RoleCategoryDto;
 import ci.gouv.dgbf.system.usermanagement.server.representation.entities.account.RoleCategoryDtoCollection;
 
-@Path(RoleRepresentation.PATH)
+@Path(RoleCategoryRepresentation.PATH)
 public interface RoleCategoryRepresentation extends RepresentationEntity<RoleCategory,RoleCategoryDto,RoleCategoryDtoCollection> {
 	
 	String PATH = "/rolecategory";

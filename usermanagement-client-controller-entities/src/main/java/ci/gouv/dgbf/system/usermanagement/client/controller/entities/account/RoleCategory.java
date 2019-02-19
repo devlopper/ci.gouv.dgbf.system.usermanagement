@@ -4,6 +4,9 @@ import org.cyk.utility.client.controller.data.Data;
 
 public interface RoleCategory extends Data {
 
+	String getName();
+	RoleCategory setName(String name);
+	
 	@Override RoleCategory setIdentifier(Object identifier);
 	@Override RoleCategory setCode(String code);
 	

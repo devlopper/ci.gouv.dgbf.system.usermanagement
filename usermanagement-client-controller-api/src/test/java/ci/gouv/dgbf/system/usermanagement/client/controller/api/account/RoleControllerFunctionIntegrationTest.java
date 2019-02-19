@@ -1,13 +1,16 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.api.account;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import org.cyk.utility.__kernel__.function.AbstractFunctionRunnableImpl;
 import org.cyk.utility.__kernel__.function.FunctionRunnableMap;
 import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifierStringProvider;
 import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifierStringProviderImpl;
+import org.cyk.utility.client.controller.test.TestControllerCreate;
 import org.cyk.utility.client.controller.test.TestControllerRead;
 import org.cyk.utility.client.controller.test.arquillian.AbstractControllerArquillianIntegrationTestWithDefaultDeploymentAsSwram;
+import org.cyk.utility.collection.CollectionHelper;
 import org.cyk.utility.value.ValueUsageType;
 import org.junit.Test;
 
@@ -19,13 +22,22 @@ public class RoleControllerFunctionIntegrationTest extends AbstractControllerArq
 	/* Create */
 	
 	@Test
-	public void createOnePerson() throws Exception{
+	public void createOneRole() throws Exception{
 		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,100);
+		Collection<Role> roles = __inject__(RoleController.class).read();
+		assertionHelper.assertTrue(__inject__(CollectionHelper.class).isEmpty(roles));
+		
+		Role role = __inject__(Role.class).setCode("r01");
+		__inject__(TestControllerCreate.class).addObjects(role).execute();
+		
+		roles = __inject__(RoleController.class).read();
+		assertionHelper.assertEquals(1,__inject__(CollectionHelper.class).getSize(roles));
+		
 		TestControllerRead function = __inject__(TestControllerRead.class);
 		//function.setIsCatchThrowable(Boolean.FALSE);
 		function.setObjectClass(Role.class);
 		function.setIdentifierValueUsageType(ValueUsageType.BUSINESS);
-		function.addObjects("RUA").execute();
+		function.addObjects("r01").execute();
 	}
 	
 	/**/

@@ -40,7 +40,9 @@
 		<module>../usermanagement-server-representation-impl</module>
 		
 		<!-- Deployment -->
+		<!--
 		<module>../usermanagement-server-deployment</module>
+		-->
 	</modules>
 	
 	<repositories>

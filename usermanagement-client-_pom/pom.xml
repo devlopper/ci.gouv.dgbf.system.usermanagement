@@ -23,8 +23,9 @@
 		<module>../usermanagement-client-controller-impl</module>
 		
 		<!-- Deployment -->
+		<!--
 		<module>../usermanagement-client-deployment</module>
-				
+		-->		
 	</modules>
 
 	<repositories>
