@@ -4,14 +4,10 @@ import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.cyk.utility.__kernel__.AbstractApplicationScopeLifeCycleListener;
-import org.cyk.utility.collection.CollectionHelper;
 import org.cyk.utility.network.protocol.ProtocolDefaults;
 import org.cyk.utility.network.protocol.ProtocolSimpleMailTransfer;
 import org.cyk.utility.security.Credentials;
 import org.cyk.utility.system.node.SystemNodeServer;
-
-import ci.gouv.dgbf.system.usermanagement.server.business.api.account.RoleBusiness;
-import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.Role;
 
 @ApplicationScoped
 public class ApplicationScopeLifeCycleListener extends AbstractApplicationScopeLifeCycleListener implements Serializable {

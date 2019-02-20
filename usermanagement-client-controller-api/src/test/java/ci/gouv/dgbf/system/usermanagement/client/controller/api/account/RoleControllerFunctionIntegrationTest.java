@@ -1,17 +1,15 @@
 package ci.gouv.dgbf.system.usermanagement.client.controller.api.account;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import org.cyk.utility.__kernel__.function.AbstractFunctionRunnableImpl;
 import org.cyk.utility.__kernel__.function.FunctionRunnableMap;
+import org.cyk.utility.__kernel__.properties.Properties;
 import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifierStringProvider;
 import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifierStringProviderImpl;
 import org.cyk.utility.client.controller.test.TestControllerCreate;
-import org.cyk.utility.client.controller.test.TestControllerRead;
 import org.cyk.utility.client.controller.test.arquillian.AbstractControllerArquillianIntegrationTestWithDefaultDeploymentAsSwram;
-import org.cyk.utility.collection.CollectionHelper;
-import org.cyk.utility.value.ValueUsageType;
+import org.cyk.utility.random.RandomHelper;
 import org.junit.Test;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Role;
@@ -24,20 +22,47 @@ public class RoleControllerFunctionIntegrationTest extends AbstractControllerArq
 	@Test
 	public void createOneRole() throws Exception{
 		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,100);
-		Collection<Role> roles = __inject__(RoleController.class).read();
-		assertionHelper.assertTrue(__inject__(CollectionHelper.class).isEmpty(roles));
 		
-		Role role = __inject__(Role.class).setCode("r01");
-		__inject__(TestControllerCreate.class).addObjects(role).execute();
+		String code = __inject__(RandomHelper.class).getAlphabetic(3);
 		
-		roles = __inject__(RoleController.class).read();
-		assertionHelper.assertEquals(1,__inject__(CollectionHelper.class).getSize(roles));
+		Role role = __inject__(Role.class).setCode(code);
+		__inject__(TestControllerCreate.class).setIsCatchThrowable(Boolean.FALSE).addObjects(role).execute();
+	}
+	
+	@Test
+	public void updateOneRole() throws Exception{
+		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,100);
 		
-		TestControllerRead function = __inject__(TestControllerRead.class);
-		//function.setIsCatchThrowable(Boolean.FALSE);
-		function.setObjectClass(Role.class);
-		function.setIdentifierValueUsageType(ValueUsageType.BUSINESS);
-		function.addObjects("r01").execute();
+		String code = __inject__(RandomHelper.class).getAlphabetic(3);
+		
+		Role role = __inject__(Role.class).setCode(code).setName("admin");
+		__inject__(RoleController.class).create(role);
+		
+		role = __inject__(RoleController.class).readOneByBusinessIdentifier(code);
+		assertionHelper.assertEquals("admin", role.getName());
+		role.setName("administrateur");
+		Properties properties = new Properties();
+		properties.setFields("name");
+		__inject__(RoleController.class).update(role,properties);
+		
+		role = __inject__(RoleController.class).readOneByBusinessIdentifier(code);
+		assertionHelper.assertEquals("administrateur", role.getName());
+	}
+	
+	@Test
+	public void deleteOneRole() throws Exception{
+		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,100);
+		
+		String code = __inject__(RandomHelper.class).getAlphabetic(3);
+		Role role = __inject__(RoleController.class).readOneByBusinessIdentifier(code);
+		assertionHelper.assertNull(role);
+		role = __inject__(Role.class).setCode(code);
+		__inject__(RoleController.class).create(role);
+		role = __inject__(RoleController.class).readOneByBusinessIdentifier(code);
+		assertionHelper.assertNotNull(role);
+		__inject__(RoleController.class).delete(role);
+		role = __inject__(RoleController.class).readOneByBusinessIdentifier(code);
+		assertionHelper.assertNull(role);
 	}
 	
 	/**/
