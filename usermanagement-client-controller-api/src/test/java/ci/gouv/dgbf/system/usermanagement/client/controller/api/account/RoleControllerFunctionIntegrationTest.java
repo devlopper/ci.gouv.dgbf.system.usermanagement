@@ -10,6 +10,7 @@ import org.cyk.utility.client.controller.proxy.ProxyClassUniformResourceIdentifi
 import org.cyk.utility.client.controller.test.TestControllerCreate;
 import org.cyk.utility.client.controller.test.arquillian.AbstractControllerArquillianIntegrationTestWithDefaultDeploymentAsSwram;
 import org.cyk.utility.random.RandomHelper;
+import org.cyk.utility.value.ValueUsageType;
 import org.junit.Test;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Role;
@@ -53,16 +54,22 @@ public class RoleControllerFunctionIntegrationTest extends AbstractControllerArq
 	public void deleteOneRole() throws Exception{
 		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,100);
 		
-		String code = __inject__(RandomHelper.class).getAlphabetic(3);
-		Role role = __inject__(RoleController.class).readOneByBusinessIdentifier(code);
-		assertionHelper.assertNull(role);
-		role = __inject__(Role.class).setCode(code);
-		__inject__(RoleController.class).create(role);
-		role = __inject__(RoleController.class).readOneByBusinessIdentifier(code);
-		assertionHelper.assertNotNull(role);
-		__inject__(RoleController.class).delete(role);
-		role = __inject__(RoleController.class).readOneByBusinessIdentifier(code);
-		assertionHelper.assertNull(role);
+		String code01 = __inject__(RandomHelper.class).getAlphabetic(3);
+		String code02 = __inject__(RandomHelper.class).getAlphabetic(3);
+		
+		assertionHelper.assertNull(__inject__(RoleController.class).readOne(code01,ValueUsageType.BUSINESS));
+		assertionHelper.assertNull(__inject__(RoleController.class).readOne(code02,ValueUsageType.BUSINESS));
+		
+		__inject__(RoleController.class).create(__inject__(Role.class).setCode(code01));
+		__inject__(RoleController.class).create(__inject__(Role.class).setCode(code02));
+		
+		assertionHelper.assertNotNull(__inject__(RoleController.class).readOne(code01,ValueUsageType.BUSINESS));
+		assertionHelper.assertNotNull(__inject__(RoleController.class).readOne(code02,ValueUsageType.BUSINESS));
+		
+		__inject__(RoleController.class).delete(__inject__(Role.class).setCode(code01));
+		
+		assertionHelper.assertNull(__inject__(RoleController.class).readOne(code01,ValueUsageType.BUSINESS));
+		assertionHelper.assertNotNull(__inject__(RoleController.class).readOne(code02,ValueUsageType.BUSINESS));
 	}
 	
 	/**/
