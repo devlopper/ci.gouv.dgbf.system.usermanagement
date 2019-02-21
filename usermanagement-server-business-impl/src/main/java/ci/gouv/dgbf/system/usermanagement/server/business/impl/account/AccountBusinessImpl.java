@@ -15,8 +15,20 @@ public class AccountBusinessImpl extends AbstractBusinessEntityImpl<Account, Acc
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected Class<Account> __getEntityClass__() {
+	protected Class<Account> __getPersistenceEntityClass__() {
 		return Account.class;
 	}
 	
+	@Override
+	public Account findByCodeByPass(String code,String pass) {
+		return getPersistence().readByCodeByPass(code, pass);
+	}
+
+	@Override
+	public Account authenticate(String code, String pass) {
+		Account account = findByCodeByPass(code, pass);
+		if(account == null)
+			throw new RuntimeException("Le nom d'utilisateur ou le mot de passe est inccorect.");
+		return account;
+	}
 }

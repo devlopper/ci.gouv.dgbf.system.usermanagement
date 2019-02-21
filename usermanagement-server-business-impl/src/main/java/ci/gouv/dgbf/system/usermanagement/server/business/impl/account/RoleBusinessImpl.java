@@ -15,7 +15,7 @@ public class RoleBusinessImpl extends AbstractBusinessEntityImpl<Role, RolePersi
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected Class<Role> __getEntityClass__() {
+	protected Class<Role> __getPersistenceEntityClass__() {
 		return Role.class;
 	}
 	

@@ -15,7 +15,7 @@ public class UserNaturalPersonBusinessImpl extends AbstractBusinessEntityImpl<Us
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected Class<UserNaturalPerson> __getEntityClass__() {
+	protected Class<UserNaturalPerson> __getPersistenceEntityClass__() {
 		return UserNaturalPerson.class;
 	}
 	

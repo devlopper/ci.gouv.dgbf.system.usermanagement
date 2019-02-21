@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.cyk.utility.instance.AbstractInstanceBuilderFunctionRunnableImpl;
 import org.cyk.utility.instance.InstanceHelper;
 
+import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.Account;
 import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.User;
 import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.UserAccount;
 import ci.gouv.dgbf.system.usermanagement.server.persistence.entities.account.UserNaturalPerson;
@@ -47,6 +48,11 @@ public class InstanceBuilderFunctionRunnableImpl extends AbstractInstanceBuilder
 			representation.setElectronicMailAddress(persistence.getElectronicMailAddress());
 			representation.setPerson(__inject__(InstanceHelper.class).buildOne(UserNaturalPersonDto.class, persistence.getPerson()));
 			
+		}else if(source instanceof Account && destination instanceof AccountDto) {
+			Account persistence = (Account) source;
+			AccountDto representation = (AccountDto) destination;
+			representation.setIdentifier(persistence.getIdentifier().toString());
+			representation.setCode(persistence.getCode());
 		}else
 			super.__copy__(source, destination);
 	}

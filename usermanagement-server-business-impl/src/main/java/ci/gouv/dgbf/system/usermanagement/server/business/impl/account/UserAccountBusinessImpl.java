@@ -24,7 +24,7 @@ public class UserAccountBusinessImpl extends AbstractBusinessEntityImpl<UserAcco
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected Class<UserAccount> __getEntityClass__() {
+	protected Class<UserAccount> __getPersistenceEntityClass__() {
 		return UserAccount.class;
 	}
 	
