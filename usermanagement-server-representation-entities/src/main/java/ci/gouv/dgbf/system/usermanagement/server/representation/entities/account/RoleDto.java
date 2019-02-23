@@ -15,7 +15,8 @@ import lombok.experimental.Accessors;
 public class RoleDto extends AbstractEntityFromPersistenceEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String type;
+	//private String type;
+	private RoleTypeDto type;
 	private String name;
 	private String description;
 	
