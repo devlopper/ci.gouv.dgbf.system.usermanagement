@@ -12,14 +12,15 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @XmlRootElement @Getter @Setter @Accessors(chain=true) @NoArgsConstructor
-public class RoleCategoryDto extends AbstractEntityFromPersistenceEntity implements Serializable {
+public class RoleTypeDto extends AbstractEntityFromPersistenceEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
+	private String description;
 	
 	@Override
-	public RoleCategoryDto setCode(String code) {
-		return (RoleCategoryDto) super.setCode(code);
+	public RoleTypeDto setCode(String code) {
+		return (RoleTypeDto) super.setCode(code);
 	}
 	
 }

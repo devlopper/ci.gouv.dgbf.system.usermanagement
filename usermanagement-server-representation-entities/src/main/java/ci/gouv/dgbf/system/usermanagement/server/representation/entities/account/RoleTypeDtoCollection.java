@@ -13,16 +13,16 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @XmlRootElement @Getter @Setter @Accessors(chain=true) @NoArgsConstructor
-@XmlSeeAlso(RoleCategoryDto.class)
-public class RoleCategoryDtoCollection extends AbstractEntityCollection<RoleCategoryDto> implements Serializable {
+@XmlSeeAlso(RoleTypeDto.class)
+public class RoleTypeDtoCollection extends AbstractEntityCollection<RoleTypeDto> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public RoleCategoryDtoCollection add(String code,String name) {
-		add(new RoleCategoryDto().setCode(code).setName(name));
+	public RoleTypeDtoCollection add(String code,String name) {
+		add(new RoleTypeDto().setCode(code).setName(name));
 		return this;
 	}
 	
-	public RoleCategoryDtoCollection add(String code) {
+	public RoleTypeDtoCollection add(String code) {
 		return add(code, null);
 	}
 		

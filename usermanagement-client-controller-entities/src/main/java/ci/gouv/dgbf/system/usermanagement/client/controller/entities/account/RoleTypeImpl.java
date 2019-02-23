@@ -4,14 +4,18 @@ import java.io.Serializable;
 
 import org.cyk.utility.client.controller.component.annotation.Input;
 import org.cyk.utility.client.controller.component.annotation.InputString;
+import org.cyk.utility.client.controller.component.annotation.InputStringLineMany;
 import org.cyk.utility.client.controller.component.annotation.InputStringLineOne;
 import org.cyk.utility.client.controller.data.AbstractDataImpl;
 
-public class RoleCategoryImpl extends AbstractDataImpl implements RoleCategory,Serializable {
+public class RoleTypeImpl extends AbstractDataImpl implements RoleType,Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Input @InputString @InputStringLineOne
 	private String name;
+	
+	@Input @InputString @InputStringLineMany
+	private String description;
 	
 	@Override
 	public String getName() {
@@ -19,19 +23,30 @@ public class RoleCategoryImpl extends AbstractDataImpl implements RoleCategory,S
 	}
 	
 	@Override
-	public RoleCategory setName(String name) {
+	public RoleType setName(String name) {
 		this.name = name;
 		return this;
 	}
 	
 	@Override
-	public RoleCategory setIdentifier(Object identifier) {
-		return (RoleCategory) super.setIdentifier(identifier);
+	public String getDescription() {
+		return description;
 	}
 	
 	@Override
-	public RoleCategory setCode(String code) {
-		return (RoleCategory) super.setCode(code);
+	public RoleType setDescription(String description) {
+		this.description = description;
+		return this;
+	}
+	
+	@Override
+	public RoleType setIdentifier(Object identifier) {
+		return (RoleType) super.setIdentifier(identifier);
+	}
+	
+	@Override
+	public RoleType setCode(String code) {
+		return (RoleType) super.setCode(code);
 	}
 	
 }

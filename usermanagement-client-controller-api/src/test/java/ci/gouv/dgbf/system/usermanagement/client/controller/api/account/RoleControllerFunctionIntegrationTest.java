@@ -14,19 +14,25 @@ import org.cyk.utility.value.ValueUsageType;
 import org.junit.Test;
 
 import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.Role;
+import ci.gouv.dgbf.system.usermanagement.client.controller.entities.account.RoleType;
 
 public class RoleControllerFunctionIntegrationTest extends AbstractControllerArquillianIntegrationTestWithDefaultDeploymentAsSwram {
 	private static final long serialVersionUID = 1L;
 	
 	/* Create */
 	
-	@Test
+	//@Test
 	public void createOneRole() throws Exception{
 		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,100);
 		
-		String code = __inject__(RandomHelper.class).getAlphabetic(3);
+		String typeCode = __getRandomCode__();
+		RoleType type = __inject__(RoleType.class).setCode(typeCode).setName(__getRandomCode__());
+		__inject__(RoleTypeController.class).create(type);
 		
-		Role role = __inject__(Role.class).setCode(code);
+		type = __inject__(RoleTypeController.class).readOneByBusinessIdentifier(typeCode);
+		
+		String roleCode = __getRandomCode__();
+		Role role = __inject__(Role.class).setCode(roleCode).setName(__getRandomCode__()).setType(type);
 		__inject__(TestControllerCreate.class).setIsCatchThrowable(Boolean.FALSE).addObjects(role).execute();
 	}
 	
@@ -34,23 +40,33 @@ public class RoleControllerFunctionIntegrationTest extends AbstractControllerArq
 	public void updateOneRole() throws Exception{
 		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,100);
 		
-		String code = __inject__(RandomHelper.class).getAlphabetic(3);
+		String typeCode01 = __getRandomCode__();
+		__inject__(RoleTypeController.class).create(__inject__(RoleType.class).setCode(typeCode01).setName(__getRandomCode__()));
 		
-		Role role = __inject__(Role.class).setCode(code).setName("admin");
+		String typeCode02 = __getRandomCode__();
+		__inject__(RoleTypeController.class).create(__inject__(RoleType.class).setCode(typeCode02).setName(__getRandomCode__()));
+		
+		String roleCode = __getRandomCode__();
+		Role role = __inject__(Role.class).setCode(roleCode).setName("admin").setType(__inject__(RoleTypeController.class).readOneByBusinessIdentifier(typeCode01));
 		__inject__(RoleController.class).create(role);
 		
-		role = __inject__(RoleController.class).readOneByBusinessIdentifier(code);
+		role = __inject__(RoleController.class).readOneByBusinessIdentifier(roleCode);
 		assertionHelper.assertEquals("admin", role.getName());
+		assertionHelper.assertNotNull(role.getType());
+		assertionHelper.assertEquals(typeCode01, role.getType().getCode());
 		role.setName("administrateur");
+		role.setType(__inject__(RoleTypeController.class).readOneByBusinessIdentifier(typeCode02));
 		Properties properties = new Properties();
-		properties.setFields("name");
+		properties.setFields("name,type");
 		__inject__(RoleController.class).update(role,properties);
 		
-		role = __inject__(RoleController.class).readOneByBusinessIdentifier(code);
+		role = __inject__(RoleController.class).readOneByBusinessIdentifier(roleCode);
 		assertionHelper.assertEquals("administrateur", role.getName());
+		assertionHelper.assertNotNull(role.getType());
+		assertionHelper.assertEquals(typeCode02, role.getType().getCode());
 	}
 	
-	@Test
+	//@Test
 	public void deleteOneRole() throws Exception{
 		__inject__(FunctionRunnableMap.class).set(ProxyClassUniformResourceIdentifierStringProviderImpl.class, ProxyClassUniformResourceIdentifierStringProviderFunctionRunnableImpl.class,100);
 		

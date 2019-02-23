@@ -1,4 +1,4 @@
-package ci.gouv.dgbf.system.usermanagement.client.controller.impl;
+package ci.gouv.dgbf.system.usermanagement.client.controller.api;
 
 import java.io.Serializable;
 
@@ -46,6 +46,7 @@ public class InstanceBuilderFunctionRunnableImpl extends AbstractInstanceBuilder
 			
 		}else
 			super.__copy__(source, destination);
+		
 	}
 	
 }
